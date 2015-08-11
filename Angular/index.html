@@ -1,0 +1,42 @@
+<DOCTYPE html>
+<html ng-app="store">
+<head>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" />
+</head>
+<body ng-controller="StoreController as store">
+    <h2>The owners of the company are happy to see you!</h2>
+    <p>The owners are {{store.owners[0].name}} and {{store.owners[1].name}}</p>
+    <ul class="list-group">
+        
+    <li class="list-group-item" ng-repeat="product in store.products">
+        <div class="pull-left gallery" ng-controller="GalleryController as gallery">
+            <img ng-src="{{product.images[gallery.current]}}">
+        </div>    
+        <h1>{{product.name}}</h1>
+        <h3><em class="pull-right">{{product.price | currency}}</em></h3>
+        <section class="pull-left" ng-controller="PanelController as panel">
+            <ul class="nav nav-pills">
+            <li ng-class="{active: panel.isSelected(1) }"><a href ng-click="panel.selectTab(1)">Description</a></li>
+            <li ng-class="{active: panel.isSelected(2) }"><a href ng-click="panel.selectTab(2)">Specification</a></li>
+            <li ng-class="{active: panel.isSelected(3) }"><a href ng-click="panel.selectTab(3)">Reviews</a></li><br/>
+            <div class="panel" ng-show="panel.isSelected(1)">
+                <blockquote>{{product.description}}</blockquote>
+            </div>
+            <div class="panel" ng-show="panel.isSelected(2)">
+                <blockquote>None Yet!</blockquote>
+            </div>
+            <div class="panel" ng-show="panel.isSelected(3)">
+                <blockquote>None Yet!</blockquote>
+            </div>
+                
+            </ul>
+        </section>
+        <div class="clearfix"></div>
+        <button ng-show="product.canPurchase"> Add to Cart </button>
+        
+    </li>
+</ul>
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+<html>
